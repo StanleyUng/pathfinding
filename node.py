@@ -11,6 +11,7 @@ class Node:
     def __init__(self, walkable, position):
         self.walkable = walkable
         self.position = position
+        self.color = 0
 
     def display_cost(self):
         print(self.G, self.H, self.F)

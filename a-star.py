@@ -6,19 +6,11 @@ from node import Node
 openlist = []
 closedlist = []
 
-def build_nodes(val):
-    for row in val:
+def display_table(table):
+    for row in table:
         for col in row:
             print(col, end ='\t')
         print('\n')
-
-T = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-]
 
 p1 = Point(6, 7)
 p2 = Point(2, 3)
@@ -28,14 +20,11 @@ p2.print_point()
 
 print(p1.distance_from(p2))
 
-for row in T:
-    for col in row:
-        print(col, end ='\t')
-    print('\n')
+display_table(T)
         
-def create_nodes():
-    for row in T:
-        for col in row:
+# def create_nodes():
+#     for row in T:
+#         for col in row:
             
             
 
