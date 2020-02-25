@@ -1,18 +1,20 @@
 import pygame
-from node import Node
+from node import *
 from point import Point
 
- 
-# Define some colors
-EMPTY_COLOR = (255, 255, 255)
 
-START_COLOR = (255, 255, 0) # Yellow
+ 
+# COLORS
+EMPTY_COLOR = (255, 255, 255)
+DESTINATION = (255, 255, 0) # Yellow
 WALL_COLOR = (0, 0, 0) # Black
-BACKGROUND_COLOR = (77, 64, 63)
+BACKGROUND_COLOR = (100, 100, 100)
 
 PINK = (255, 102, 255)
 BLUE = (102, 255, 255)
- 
+PATH_COLOR = (255, 255, 0) # Yellow
+
+# SIZES
 # This sets the WIDTH and HEIGHT of each grid location
 WIDTH = 20
 HEIGHT = 20
@@ -45,7 +47,18 @@ for row in range(GRID_SIZE):
         # grid[row].append(0)  # Append a cell
         grid[row].append(Node(True, Point(row, col)))
 
-grid[][] =  
+# Set start and end points
+
+
+grid[5][5].type = NodeType.START
+start = grid[5][5]
+grid[10][10].type = NodeType.END
+end = grid[10][10]
+
+for row in range(GRID_SIZE):
+    for col in range(GRID_SIZE):
+        if grid[row][col].type == NodeType.EMPTY:
+            grid[row][col].calc_values(start.position, end.position)
  
 # Initialize pygame
 pygame.init()
@@ -69,9 +82,10 @@ while not done:
             col = pos[0] // (WIDTH + MARGIN)
             row = pos[1] // (HEIGHT + MARGIN)
             # Set that location to one
-            grid[row][col].color = 1
+            # grid[row][col].walkable = True
             # pos is the mouse coordinates, row col is the grid coordinates
-            print("Click ", pos, "Grid coordinates: ", row, col)
+            print("Click: ", pos, "({0}, {1})".format(row, col), "Type: ", grid[row][col].type)
+            grid[row][col].display_cost()
  
     # Set the screen background
     screen.fill(BACKGROUND_COLOR)
@@ -79,9 +93,18 @@ while not done:
     # Draw the grid
     for row in range(GRID_SIZE):
         for col in range(GRID_SIZE):
-            color = EMPTY_COLOR
-            if grid[row][col].color == 1:
-                color = PINK
+
+            tile = grid[row][col].type
+
+            if tile == NodeType.EMPTY:
+                color = EMPTY_COLOR
+
+            elif tile == NodeType.WALL:
+                color = WALL_COLOR
+
+            elif tile == NodeType.START or tile == NodeType.END:
+                color = DESTINATION
+            
             pygame.draw.rect(screen,
                              color,
                              [(MARGIN + WIDTH) * col + MARGIN,

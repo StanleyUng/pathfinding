@@ -6,6 +6,7 @@ class Point:
         self.x = x
         self.y = y
 
+    # Distance from another point
     def distance_from(self, p):
         return math.sqrt((self.x - p.x)**2.0 + (self.y - p.y)**2.0)
 
